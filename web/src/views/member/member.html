@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<div class="layui-tab layui-tab-brief">
+<div class="layui-tab layui-tab-brief" style="text-align: right">
     <ul class="layui-tab-title">
         <li class="layui-this">企业成员</li>
         <li>职位</li>
@@ -50,7 +50,7 @@
 
                             </div>
                             <div style="text-align: center;margin-top: 110%">
-                                <button class="layui-btn layui-btn-radius layui-btn-fluid"
+                                <button class="layui-btn layui-btn-radius layui-btn-myself"
                                         style="width: 90%;background-color: #22d7bb">管理部门
                                 </button>
                             </div>
@@ -64,12 +64,13 @@
                                 <button class="layui-btn layui-btn-hid layui-btn-sm ">
                                     <h3>调整部门</h3>
                                 </button>
-                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal" data-type="add"
-                                        style="background-color: #22d7bb" onclick="adduser()">
+                                <button class="layui-btn layuiadmin-btn-admin layui-btn-xs layui-btn-radius layui-btn-myself"
+                                        data-type="add"
+                                        style="background-color: #22d7bb">
                                     <i class="layui-icon layui-icon-add-1"> <span>添加成员</span>
                                     </i>
                                 </button>
-                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-normal"
+                                <button class="layui-btn layuiadmin-btn-admin layui-btn-xs layui-btn-radius layui-btn-myself"
                                         style="background-color: #22d7bb">
                                     <i class="layui-icon layui-icon-more"> <span>更多</span>
                                     </i>
@@ -91,8 +92,10 @@
                                     </div>
                                 </script>
 
-                                <script type="text/html" id="test-table-toolbar-barDemo">
-                                    <a style="color: rgba(0,219,197,0.99);cursor:pointer ">设置</a>
+                                <script type="text/html"  id="test-table-toolbar-barDemo">
+                                    <button class="layui-btn layuiadmin-btn-admin"
+                                            style="color: rgba(0,219,197,0.99);background-color: #fff" lay-event="edit">设置
+                                    </button>
                                 </script>
 
                             </div>
@@ -121,44 +124,118 @@
 
 
 <script>
-    layui.use(['admin'], function () {
-        var $ = layui.jquery
-            , element = layui.element
+    layui.use('useradmin', layui.factory('useradmin')).use(['admin', 'useradmin', 'table'], function () {
+        var $ = layui.$
+            , admin = layui.admin
+            , view = layui.view
             , table = layui.table
+            , form = layui.form
+            , element = layui.element
             , layer = layui.layer;
 
+        form.render(null, 'layadmin-useradmin-formlist');
 
-        //点击事件
+        //监听搜索
+        form.on('submit(LAY-user-back-search)', function (data) {
+            var field = data.field;
+
+            //执行重载
+            table.reload('LAY-user-back-manage', {
+                where: field
+            });
+        });
+
+
+        //事件
         var active = {
-            add: function(){
+            batchdel: function () {
+                var checkStatus = table.checkStatus('LAY-user-back-manage')
+                    , checkData = checkStatus.data; //得到选中的数据
+
+                if (checkData.length === 0) {
+                    return layer.msg('请选择数据');
+                }
+
+                layer.prompt({
+                    formType: 1
+                    , title: '敏感操作，请验证口令'
+                }, function (value, index) {
+                    layer.close(index);
+
+                    layer.confirm('确定删除吗？', function (index) {
+
+                        //执行 Ajax 后重载
+                        /*
+                        admin.req({
+                          url: 'xxx'
+                          //,……
+                        });
+                        */
+                        table.reload('LAY-user-back-manage');
+                        layer.msg('已删除');
+                    });
+                });
+            }
+            , add: function () {
                 admin.popup({
-                    title: '添加用户'
-                    ,area: ['500px', '450px']
-                    ,id: 'LAY-popup-user-add'
-                    ,success: function(layero, index){
-                        view(this.id).render('user/user/userform').done(function(){
-                            form.render(null, 'layuiadmin-form-useradmin');
+                    title: '添加成员'
+                    , area: ['521px', '650px']
+                    , id: 'LAY-popup-useradmin-add'
+                    , success: function (layero, index) {
+                        view(this.id).render('member/memberadd').done(function () {
+                            form.render(null, 'layuiadmin-form-admin');
 
                             //监听提交
-                            form.on('submit(LAY-user-front-submit)', function(data){
+                            form.on('submit(LAY-user-back-submit)', function (data) {
                                 var field = data.field; //获取提交的字段
 
                                 //提交 Ajax 成功后，关闭当前弹层并重载表格
                                 //$.ajax({});
-                                layui.table.reload('LAY-user-manage'); //重载表格
+                                layui.table.reload('LAY-user-back-manage'); //重载表格
                                 layer.close(index); //执行关闭
                             });
                         });
                     }
                 });
             }
-        };
+            , sz: function () {
+                admin.popup({
+                    title: '添加成员'
+                    , area: ['521px', '650px']
+                    , id: 'LAY-popup-useradmin-add'
+                    , success: function (layero, index) {
+                        view(this.id).render('member/memberadd').done(function () {
+                            form.render(null, 'layuiadmin-form-admin');
+
+                            //监听提交
+                            form.on('submit(LAY-user-back-submit)', function (data) {
+                                var field = data.field; //获取提交的字段
+
+                                //提交 Ajax 成功后，关闭当前弹层并重载表格
+                                //$.ajax({});
+                                layui.table.reload('LAY-user-back-manage'); //重载表格
+                                layer.close(index); //执行关闭
+                            });
+                        });
+                    }
+                });
+            }
+        }
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function () {
+            alert("123")
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        $.get("/Session/online", function(data){
+            alert("Data Loaded: " + data);
+        });
+
 
 
         //配置表数据
         table.render({
             elem: '#test-table-toolbar'
-            , url: 'http://localhost:8080/User/findall'
+            , url: '/User/findall'
             , method: 'GET'
             , toolbar: false
             , title: '用户数据表'
@@ -195,48 +272,35 @@
 
         });
 
-        //头工具栏事件
-        table.on('toolbar(test-table-toolbar)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：' + data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
-                    break;
-            }
-            ;
-        });
-
         //监听行工具事件
         table.on('tool(test-table-toolbar)', function (obj) {
             var data = obj.data;
-            if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if (obj.event === 'edit') {
-                layer.prompt({
-                    formType: 2
-                    , value: data.email
-                }, function (value, index) {
-                    obj.update({
-                        email: value
-                    });
-                    layer.close(index);
+            if (obj.event === 'edit') {
+                admin.popup({
+                    title: '修改成员'
+                    ,skin: 'myself-class'
+                    , area: ['650px', '520px']
+                    , id: 'LAY-popup-useradmin-add'
+                    , success: function (layero, index) {
+                        view(this.id).render('member/membersz').done(function () {
+                            form.render(null, 'layuiadmin-form-admin');
+
+                            //监听提交
+                            form.on('submit(LAY-user-back-submit)', function (data) {
+                                var field = data.field; //获取提交的字段
+
+                                //提交 Ajax 成功后，关闭当前弹层并重载表格
+                                //$.ajax({});
+                                layui.table.reload('LAY-user-back-manage'); //重载表格
+                                layer.close(index); //执行关闭
+                            });
+                        });
+                    }
                 });
             }
         });
 
         element.render('collapse');
-
 
     });
 </script>

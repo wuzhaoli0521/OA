@@ -1,0 +1,170 @@
+
+
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="text-align: center">
+  <ul class="layui-tab-title">
+    <li class="layui-this">快速添加成员</li>
+    <li>通过邮件邀请</li>
+    <li>通过链接注册</li>
+  </ul>
+
+  <div class="layui-tab-content" style="height: 100px;text-align: center">
+    <div class="layui-tab-item layui-show">
+      <br>快速添加成员帐号，设置默认密码，首次登录时需要修改默认密码。
+      <div class="layui-form" lay-filter="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+        <div class="layui-form-item">
+          <label class="layui-form-label"> 姓名<span style="color: red">*</span> </label>
+          <div class="layui-input-inline">
+            <script type="text/html" template>
+              <input type="text" name="username" value="{{ d.params.username || '' }}" lay-verify="required" placeholder="请输入员工真实姓名" autocomplete="off" class="layui-input" style="width: 150%">
+            </script>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">登录用户名<span style="color: red">*</span> </label>
+          <div class="layui-input-inline">
+            <script type="text/html" template>
+              <input type="text" name="phone" value="{{ d.params.phone || '' }}" lay-verify="phone" placeholder="请输入员工用户名，比如Lily" autocomplete="off" class="layui-input" style="width: 150%">
+            </script>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">邮箱<span style="color: red">*</span> </label>
+          <div class="layui-input-inline">
+            <script type="text/html" template>
+              <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input" style="width: 150%">
+            </script>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">手机号<span style="color: red">*</span> </label>
+          <div class="layui-input-inline">
+            <script type="text/html" template>
+              <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入手机号" autocomplete="off" class="layui-input" style="width: 150%">
+            </script>
+          </div>
+        </div>
+<!--        <div class="layui-form-item" lay-filter="sex">-->
+<!--          <label class="layui-form-label">选择性别</label>-->
+<!--          <div class="layui-input-block">-->
+<!--            <script type="text/html" template>-->
+<!--              <input type="radio" name="sex" value="男" title="男" {{ d.params.sex === '男' ? 'checked' : '' }}>-->
+<!--              <input type="radio" name="sex" value="女" title="女" {{ d.params.sex === '女' ? 'checked' : '' }}>-->
+<!--            </script>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="layui-form-item">
+          <label class="layui-form-label">默认密码<span style="color: red">*</span> </label>
+          <div class="layui-input-inline">
+            <script type="text/html" template>
+              <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入默认密码" autocomplete="off" class="layui-input" style="width: 150%">
+            </script>
+          </div>
+        </div>
+        <div class="layui-form-item">
+        <label class="layui-form-label">员工编号<span style="color: red">*</span> </label>
+        <div class="layui-input-inline">
+          <script type="text/html" template>
+            <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入员工编号" autocomplete="off" class="layui-input" style="width: 150%">
+          </script>
+        </div>
+      </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">所属部门<span style="color: red">*</span> </label>
+          <div class="layui-input-inline">
+            <script type="text/html" template>
+              <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入员工编号" autocomplete="off" class="layui-input" style="width: 150%">
+            </script>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label"></label>
+          <div class="layui-input-inline">
+            <input type="button" lay-submit lay-filter="LAY-user-front-submit" value="确认" class="layui-btn" style="margin-left: 40%;margin-top: 10px">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-tab-item">
+      <br>通过邮箱给企业成员发送注册当前企业的邀请链接，你可以拷贝企业通讯录批量输入邮件地址。
+      <div class="layui-form" lay-filter="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+        <div class="layui-form-item">
+          <label class="layui-form-label">邮箱<span style="color: red">*</span> </label>
+          <div class="layui-input-inline">
+            <script type="text/html" template>
+              <input type="text" name="username" value="{{ d.params.username || '' }}" lay-verify="required" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input" style="width: 150%">
+            </script>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">邮箱<span style="color: red">*</span> </label>
+          <div class="layui-input-inline">
+            <script type="text/html" template>
+              <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input" style="width: 150%">
+            </script>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label"></label>
+          <div class="layui-input-inline">
+            <input type="button" lay-submit lay-filter="LAY-user-front-submit" value="发送邀请" class="layui-btn" style="margin-left: 40%;margin-top: 10px;background-color:#22d7bb">
+            <br><br><a href="#" style="margin-left: 40%;color:#22d7bb ">批量粘贴地址</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-tab-item" style="text-align: left">
+      <h3 style="font-weight: bold">通过地址注册</h3>
+      <span style="color: #888">
+        发送注册地址给企业成员，如发送到公司的邮件组 all@company.com, 他们可以通过该地址直接注册帐号，如果地址泄漏，请 <a href="#" style="color:#22d7bb ">重新生成</a>。
+      </span>
+      <br><br>
+      <div class="layui-form-item">
+        <div class="layui-input-inline">
+          <script type="text/html" template>
+            <input type="text" name="username" value="{{ d.params.username || '' }}" lay-verify="required" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input" style="width: 200%">
+          </script>
+        </div>
+      </div>
+      <span>
+        该选项目前 <span style="color: red">开启</span>，可以在 <a href="#" style="color:#22d7bb ">企业设置</a> 中 <span style="color: red">关闭</span>。
+      </span>
+      <hr>
+      <h3 style="font-weight: bold">公司邮箱注册</h3>
+      <span style="color: #888">
+        如果你公司有自己的域名邮箱，拥有 wuzl 邮箱的成员都可以通过下面的地址自己注册帐号。<span style="color: red"> http://wuzl.worktile.com/signup</span>
+      </span>
+      <br><br>
+      <div class="layui-form-item">
+        <div class="layui-input-inline">
+          <script type="text/html" template>
+            <input type="text" name="username" value="{{ d.params.username || '' }}" lay-verify="required" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input" style="width: 200%">
+          </script>
+        </div>
+      </div>
+      <span>
+        该选项目前 <span style="color: red">开启</span>，可以在 <a href="#" style="color:#22d7bb ">企业设置</a> 中 <span style="color: red">关闭</span>。
+      </span>
+    </div>
+  </div>
+</div>
+
+
+<script>
+layui.use(['admin', 'form', 'upload'], function(){
+  var $ = layui.$
+  ,form = layui.form
+  ,upload = layui.upload;
+  
+  //上传头像
+  upload.render({
+    elem: '#layuiadmin-upload-useradmin'
+    ,url: './json/upload/demo.js'
+    ,accept: 'images'
+    ,method: 'get'
+    ,acceptMime: 'image/*'
+    ,done: function(res){
+      $(this.item).prev("div").children("input").val(res.data.src)
+    }
+  });
+})
+</script>

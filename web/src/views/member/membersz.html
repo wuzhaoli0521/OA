@@ -1,0 +1,97 @@
+
+
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="text-align: center">
+    <ul class="layui-tab-title">
+        <li class="layui-this"style="background-color: white">基本信息设置</li>
+        <li>修改成员密码</li>
+    </ul>
+
+    <div class="layui-tab-content" style="height: 100px;text-align: center">
+        <div class="layui-tab-item layui-show">
+            <div class="layui-form" lay-filter="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"> 姓名</label>
+                    <div class="layui-input-inline">
+                        <script type="text/html" template>
+                            <input type="text" name="username" value="{{ d.params.username || '' }}" lay-verify="required" placeholder="请输入员工真实姓名" autocomplete="off" class="layui-input" style="width: 230%">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">员工编号</label>
+                    <div class="layui-input-inline">
+                        <script type="text/html" template>
+                            <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入员工编号" autocomplete="off" class="layui-input" style="width: 230%">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色 </label>
+                    <div class="layui-input-inline">
+                        <script type="text/html" template>
+                            <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入员工编号" autocomplete="off" class="layui-input" style="width: 230%">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所在部门</label>
+                    <div class="layui-input-inline">
+                        <script type="text/html" template>
+                            <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入员工编号" autocomplete="off" class="layui-input" style="width: 230%">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">职位 </label>
+                    <div class="layui-input-inline">
+                        <script type="text/html" template>
+                            <input type="text" name="email" value="{{ d.params.email || '' }}" lay-verify="email" placeholder="请输入员工编号" autocomplete="off" class="layui-input" style="width: 230%">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-myself" style="padding: 2px 40px">确定</button>
+                    <a href="" style="margin-right: 30%;margin-left: 5%;color: #22d7bb" > 取消</a>
+                    <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-bring" style="padding: 2px 40px">禁用</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab-item">
+            <div class="layui-form" lay-filter="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码: </label>
+                    <div class="layui-input-inline">
+                        <script type="text/html" template>
+                            <input type="text" name="username" value="{{ d.params.username || '' }}" lay-verify="required" placeholder="请输入成员密码" autocomplete="off" class="layui-input" style="width: 230%">
+                        </script>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-myself" style="padding: 2px 40px">确定</button>
+                    <a href="" style="margin-right: 30%;margin-left: 5%;color: #22d7bb" > 取消</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    layui.use(['admin', 'form', 'upload'], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,upload = layui.upload;
+
+        //上传头像
+        upload.render({
+            elem: '#layuiadmin-upload-useradmin'
+            ,url: './json/upload/demo.js'
+            ,accept: 'images'
+            ,method: 'get'
+            ,acceptMime: 'image/*'
+            ,done: function(res){
+                $(this.item).prev("div").children("input").val(res.data.src)
+            }
+        });
+    })
+</script>
